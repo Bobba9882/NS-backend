@@ -1,6 +1,8 @@
 package com.example.nsbackend.service.impl;
 
 import com.example.nsbackend.model.Disruption;
+import com.example.nsbackend.model.Station.Payload;
+import com.example.nsbackend.model.Station.Station;
 import com.example.nsbackend.service.ExternalAPIService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -16,17 +18,32 @@ import java.util.Objects;
 
 @Service
 public class ExternalAPIServiceImpl implements ExternalAPIService {
-
+    String baseURL = "https://gateway.apiportal.ns.nl/reisinformatie-api/api/";
     @Override
     public List<Disruption> getDisruptions() {
+        //create template, initialize header with subscription key and add it to HttpEntity
         RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Ocp-Apim-Subscription-Key","22253f3953f84fe28e20863f4bd6340e");
-        HttpEntity<String> entity = new HttpEntity<>("",headers);
-        String baseURL = "https://gateway.apiportal.ns.nl/reisinformatie-api/api/v3/disruptions";
-        ResponseEntity<Disruption[]> disruptions = restTemplate.exchange(baseURL,HttpMethod.GET,entity,Disruption[].class);
+        HttpEntity<String> entity = createEntity();
 
+        //send get request to external api and store it in responseEntity
+        ResponseEntity<Disruption[]> disruptions = restTemplate.exchange(baseURL + "v3/disruptions",HttpMethod.GET,entity,Disruption[].class);
+
+        //convert responseEntity to list and return
         return Arrays.asList(Objects.requireNonNull(disruptions.getBody()));
     }
 
+    @Override
+    public List<Station> getStations() {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> entity = createEntity();
+
+        ResponseEntity<Payload> stations = restTemplate.exchange(baseURL + "v2/stations",HttpMethod.GET,entity, Payload.class);
+        return List.of(stations.getBody().getPayload());
+    }
+
+    private HttpEntity<String> createEntity(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Ocp-Apim-Subscription-Key","22253f3953f84fe28e20863f4bd6340e");
+        return new HttpEntity<>(headers);
+    }
 }
