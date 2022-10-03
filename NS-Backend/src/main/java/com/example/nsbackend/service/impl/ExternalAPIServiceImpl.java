@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +45,14 @@ public class ExternalAPIServiceImpl implements ExternalAPIService {
 
     @Override
     public Trips getTrips(long fromStation, long toStation) {
-        return null;
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> entity = createEntity();
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(baseURL + "v3/trips")
+                .queryParam("originUicCode",fromStation)
+                .queryParam("destinationUicCode",toStation);
+
+        ResponseEntity<Trips> trips = restTemplate.exchange(uriBuilder.toUriString(),HttpMethod.GET,entity,Trips.class);
+        return trips.getBody();
     }
 
 

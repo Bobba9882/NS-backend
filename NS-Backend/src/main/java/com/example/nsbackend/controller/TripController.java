@@ -22,15 +22,18 @@ public class TripController {
         stationsList = this.externalAPIService.getStations();
     }
 
-    @GetMapping("")
+    @GetMapping()
     private Trips GetTrips(@RequestParam String fromStation, @RequestParam String toStation) {
+        long fromUIC = getStations(fromStation).get(0).getUICCode();
+        long toUIC = getStations(toStation).get(0).getUICCode();
 
+        return externalAPIService.getTrips(fromUIC, toUIC);
     }
 
-    private List<Station> getStations (String stationName){
+    private List<Station> getStations(String stationName) {
         List<Station> returnValue = new ArrayList<>();
-        for (Station station : stationsList){
-            if (station.namen.lang.contains(stationName)){
+        for (Station station : stationsList) {
+            if (station.namen.lang.contains(stationName)) {
                 returnValue.add(station);
             }
         }

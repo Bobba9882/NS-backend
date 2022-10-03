@@ -8,5 +8,7 @@ import lombok.Data;
 @Data
 public class Trip {
     @JsonProperty("actualDurationInMinutes")
-   private String duration;
+    private String duration;
+    @JsonProperty("legs")
+    private TripInformation[] tripInformation;
 }
