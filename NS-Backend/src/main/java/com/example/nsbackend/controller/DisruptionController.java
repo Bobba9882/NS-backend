@@ -1,15 +1,16 @@
 package com.example.nsbackend.controller;
 
 import com.example.nsbackend.model.Disruption;
-import com.example.nsbackend.model.Station.Station;
 import com.example.nsbackend.service.ExternalAPIService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping(("/api/v1"))
+@RequestMapping(("/api/v1/disruptions"))
 @CrossOrigin
 public class DisruptionController {
 
@@ -20,16 +21,10 @@ public class DisruptionController {
         this.externalAPIService = externalAPIService;
     }
 
-    @GetMapping("/disruptions")
+    @GetMapping()
     private List<Disruption> GetDisruptions() {
         return externalAPIService.getDisruptions();
     }
 
-    @GetMapping("/stations/{name}")
-    private Optional<Station> GetStations(@PathVariable("name") String name) {
-        return externalAPIService.getStations().stream()
-                .filter(station -> name.equals(station.namen.lang))
-                .findFirst();
 
-    }
 }

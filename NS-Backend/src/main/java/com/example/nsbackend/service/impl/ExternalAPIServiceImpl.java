@@ -3,6 +3,7 @@ package com.example.nsbackend.service.impl;
 import com.example.nsbackend.model.Disruption;
 import com.example.nsbackend.model.Station.Payload;
 import com.example.nsbackend.model.Station.Station;
+import com.example.nsbackend.model.Trip.Trips;
 import com.example.nsbackend.service.ExternalAPIService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -40,6 +41,12 @@ public class ExternalAPIServiceImpl implements ExternalAPIService {
         ResponseEntity<Payload> stations = restTemplate.exchange(baseURL + "v2/stations",HttpMethod.GET,entity, Payload.class);
         return List.of(stations.getBody().getPayload());
     }
+
+    @Override
+    public Trips getTrips(long fromStation, long toStation) {
+        return null;
+    }
+
 
     private HttpEntity<String> createEntity(){
         HttpHeaders headers = new HttpHeaders();
