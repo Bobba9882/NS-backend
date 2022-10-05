@@ -9,5 +9,5 @@ import java.util.List;
 public interface ExternalAPIService {
     List<Disruption> getDisruptions();
     List<Station> getStations();
-    Trips getTrips(long fromStation, long toStation, String date);
+    Trips getTrips(long fromStation, long toStation, String date, boolean isArrival);
 }

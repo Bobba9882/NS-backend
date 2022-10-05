@@ -45,13 +45,14 @@ public class ExternalAPIServiceImpl implements ExternalAPIService {
     }
 
     @Override
-    public Trips getTrips(long fromStation, long toStation, String date) {
+    public Trips getTrips(long fromStation, long toStation, String date, boolean isArrival) {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> entity = createEntity();
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(baseURL + "v3/trips")
                 .queryParam("originUicCode", fromStation)
                 .queryParam("destinationUicCode", toStation)
-                .queryParam("dateTime", date);
+                .queryParam("dateTime", date)
+                .queryParam("searchForArrival", isArrival);
 
         ResponseEntity<Trips> trips = restTemplate.exchange(uriBuilder.toUriString(), HttpMethod.GET, entity, Trips.class);
         return trips.getBody();
