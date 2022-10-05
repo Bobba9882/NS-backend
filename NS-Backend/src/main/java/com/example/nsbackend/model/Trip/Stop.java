@@ -16,10 +16,10 @@ public class Stop {
     private long uicCode;
     @JsonProperty("type")
     private String type;
-    @JsonProperty("actualDateTime")
-    @JsonAlias("actualDepartureDateTime")
+    @JsonProperty("plannedDateTime")
+    @JsonAlias("plannedDepartureDateTime")
     private String arrivalTime;
-    @JsonProperty("actualTrack")
-    @JsonAlias("actualArrivalTrack")
+    @JsonProperty("plannedTrack")
+    @JsonAlias("plannedArrivalTrack")
     private String fromTrack;
 }

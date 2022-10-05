@@ -23,11 +23,11 @@ public class TripController {
     }
 
     @GetMapping()
-    private Trips GetTrips(@RequestParam String fromStation, @RequestParam String toStation) {
+    private Trips GetTrips(@RequestParam String fromStation, @RequestParam String toStation, @RequestParam String date) {
         long fromUIC = getStations(fromStation).get(0).getUICCode();
         long toUIC = getStations(toStation).get(0).getUICCode();
 
-        return externalAPIService.getTrips(fromUIC, toUIC);
+        return externalAPIService.getTrips(fromUIC, toUIC, date);
     }
 
     private List<Station> getStations(String stationName) {
