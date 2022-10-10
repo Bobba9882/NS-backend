@@ -22,7 +22,7 @@ public class DisruptionController {
     }
 
     @GetMapping()
-    private List<Disruption> GetDisruptions() {
+    public List<Disruption> GetDisruptions() {
         return externalAPIService.getDisruptions();
     }
 
