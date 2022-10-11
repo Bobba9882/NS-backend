@@ -1,13 +1,13 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Java CI with Maven
+name: Spring boot CD flow
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "Release" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "Release" ]
 
 jobs:
   build:
@@ -22,5 +22,17 @@ jobs:
         java-version: '19'
         distribution: 'temurin'
         cache: maven
+
     - name: Build with Maven
       run: mvn clean install --file ./NS-Backend/pom.xml
+
+     
+    - name: Build & push Docker image
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: jesseleppens/ns-backend
+        tags: v1, latest
+        registry: docker.io
+        dockerfile: Dockerfile
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
