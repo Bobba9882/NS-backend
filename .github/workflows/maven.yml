@@ -33,6 +33,6 @@ jobs:
         image: jesseleppens/ns-backend
         tags: v1, latest
         registry: docker.io
-        dockerfile: Dockerfile
+        dockerfile: NS-Backend/Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
