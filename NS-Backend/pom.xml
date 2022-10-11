@@ -64,5 +64,6 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>ns-backend-docker</finalName>
     </build>
 </project>
