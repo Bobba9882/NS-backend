@@ -20,5 +20,8 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Build with Maven
+    - name: Build NS-Backend with Maven
       run: mvn clean install --file NS-Backend/pom.xml
+
+    - name: Build User-Backend with Maven
+      run: mvn clean install --file User-Backend/pom.xml
