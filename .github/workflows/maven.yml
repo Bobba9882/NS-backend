@@ -24,7 +24,7 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      run: mvn clean install --file ./NS-Backend/pom.xml
+      run: mvn clean install --file NS-Backend/pom.xml
 
      
     - name: Build & push Docker image
@@ -33,6 +33,6 @@ jobs:
         image: jesseleppens/ns-backend
         tags: v1, latest
         registry: docker.io
-        dockerfile: Dockerfile
+        dockerfile: NS-Backend/Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
