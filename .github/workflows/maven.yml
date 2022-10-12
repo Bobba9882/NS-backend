@@ -36,7 +36,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: jesseleppens/ns-backend
-        tags: latest
+        tags: latest-ns
         registry: docker.io
         dockerfile: NS-Backend/Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
@@ -46,7 +46,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: jesseleppens/ns-backend
-        tags: latest
+        tags: latest-user
         registry: docker.io
         dockerfile: User-Backend/Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
