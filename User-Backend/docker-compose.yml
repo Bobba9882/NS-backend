@@ -1,17 +1,19 @@
 version: '3'
 services:
   backend:
-    image: ns-backend-docker.jar
+    image: user-backend-docker.jar
     container_name: backend
     depends_on:
       - mysql
     ports:
-      - "8080:8080"
+      - "9090:9090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/userdatabase?useSSL=false
   mysql:
     container_name: mysqldatabase
     image: mysql:5.5.57
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_DATABASE=nsdatabase
+      - MYSQL_DATABASE=userdatabase
       - MYSQL_ROOT_PASSWORD=root
