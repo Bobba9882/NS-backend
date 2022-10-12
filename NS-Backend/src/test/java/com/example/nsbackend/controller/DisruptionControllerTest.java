@@ -35,8 +35,4 @@ class DisruptionControllerTest {
         assertEquals(expectedDisruptions, returnedDisruptions);
     }
 
-    @Test
-    void returns_false(){
-        fail();
-    }
 }
