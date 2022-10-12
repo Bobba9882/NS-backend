@@ -9,12 +9,12 @@ services:
       - MYSQL_DATABASE=userdatabase
       - MYSQL_ROOT_PASSWORD=root
   ns-backend:
-    image: ns-backend-docker.jar
+    image: jesseleppens/ns-backend:latest-ns
     container_name: ns-backend
     ports:
       - "8080:8080"
   user-backend:
-    image: user-backend-docker.jar
+    image: jesseleppens/ns-backend:latest-user
     container_name: user-backend
     depends_on:
       - mysql
