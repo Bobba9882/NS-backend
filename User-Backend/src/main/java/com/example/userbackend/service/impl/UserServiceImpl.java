@@ -4,6 +4,7 @@ import com.example.userbackend.model.User;
 import com.example.userbackend.repository.UserRepository;
 import com.example.userbackend.service.UserService;
 import org.springframework.expression.ExpressionException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -12,16 +13,18 @@ import java.util.Objects;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder encoder;
 
-    UserServiceImpl(UserRepository userRepository) {
+    UserServiceImpl(UserRepository userRepository, PasswordEncoder encoder) {
         super();
         this.userRepository = userRepository;
+        this.encoder = encoder;
     }
 
     @Override
     public User loginUser(String email, String password) {
         User user = userRepository.findByEmail(email);
-        if (Objects.equals(password, user.getPassword())) {
+        if (encoder.matches(password, user.getPassword())) {
             return user;
         } else {
             throw new ExpressionException("Incorrect password");
@@ -30,6 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registerUser(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
