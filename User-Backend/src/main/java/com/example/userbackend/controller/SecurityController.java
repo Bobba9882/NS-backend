@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/token")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class SecurityController {
 
     private static final Logger LOG = LoggerFactory.getLogger(SecurityController.class);
