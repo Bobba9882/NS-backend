@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,7 +24,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User loginUser(String email, String password) {
-        User user = userRepository.findByEmail(email);
+        Optional<User> temp = userRepository.findByEmail(email);
+        User user = temp.get();
         if (encoder.matches(password, user.getPassword())) {
             return user;
         } else {
