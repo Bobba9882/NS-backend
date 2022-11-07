@@ -23,17 +23,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User loginUser(String email, String password) {
-        Optional<User> temp = userRepository.findByEmail(email);
-        User user = temp.get();
-        if (encoder.matches(password, user.getPassword())) {
-            return user;
-        } else {
-            throw new ExpressionException("Incorrect password");
-        }
-    }
-
-    @Override
     public User registerUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
