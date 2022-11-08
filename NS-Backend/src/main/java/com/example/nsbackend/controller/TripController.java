@@ -29,10 +29,10 @@ public class TripController {
     }
 
     @GetMapping()
-    public Trips GetTrips(@RequestParam String fromStation, @RequestParam String toStation, @RequestParam String date, @RequestParam(defaultValue = "false") boolean isArrival) {
+    public Trip[] GetTrips(@RequestParam String fromStation, @RequestParam String toStation, @RequestParam String date, @RequestParam(defaultValue = "false") boolean isArrival) {
         long fromUIC = stationService.FindStationsByName(fromStation, stationsList).get(0).getUICCode();
         long toUIC = stationService.FindStationsByName(toStation, stationsList).get(0).getUICCode();
-        return externalAPIService.getTrips(fromUIC, toUIC, date, isArrival);
+        return externalAPIService.getTrips(fromUIC, toUIC, date, isArrival).getTrips();
     }
 
     @GetMapping("/single")

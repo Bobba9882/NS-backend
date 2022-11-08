@@ -8,5 +8,5 @@ public interface TripService {
     boolean saveTripLink(String data, Long id);
     boolean deleteTripLink(Long tripId);
 
-    List<TripLink> getTripLinkByUserId(Long userId);
+    List<String> getTripLinkByUserId(Long userId);
 }

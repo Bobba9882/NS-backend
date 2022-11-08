@@ -5,6 +5,7 @@ import com.example.userbackend.repository.TripRepository;
 import com.example.userbackend.service.TripService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +33,11 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<TripLink> getTripLinkByUserId(Long userId) {
-        return tripRepository.findByUser(userId);
+    public List<String> getTripLinkByUserId(Long userId) {
+        List<String> links = new ArrayList<>();
+        for (TripLink trip : tripRepository.findByUser(userId)) {
+            links.add(trip.getData());
+        }
+        return links;
     }
 }

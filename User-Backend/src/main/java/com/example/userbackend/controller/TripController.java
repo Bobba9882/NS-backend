@@ -1,9 +1,13 @@
 package com.example.userbackend.controller;
 
+import com.example.userbackend.model.Trip.Trip;
+import com.example.userbackend.service.ExternalAPIService;
 import com.example.userbackend.service.TripService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/trip")
@@ -11,25 +15,28 @@ import org.springframework.web.bind.annotation.*;
 public class TripController {
 
     private final TripService tripService;
+    private final ExternalAPIService externalAPIService;
 
-    public TripController(TripService tripService) {
+    public TripController(TripService tripService, ExternalAPIService externalAPIService) {
         this.tripService = tripService;
+        this.externalAPIService = externalAPIService;
     }
 
     //save trip
     @PostMapping
-    public ResponseEntity<Boolean> SaveTripLink(@RequestParam String data, @RequestParam Long id){
+    public ResponseEntity<Boolean> SaveTripLink(@RequestParam String data, @RequestParam Long id) {
         return new ResponseEntity<>(tripService.saveTripLink(data, id), HttpStatus.OK);
     }
 
     //delete trip
     @DeleteMapping
-    public ResponseEntity<Boolean> DeleteTripLink(@RequestParam Long id){
+    public ResponseEntity<Boolean> DeleteTripLink(@RequestParam Long id) {
         return new ResponseEntity<>(tripService.deleteTripLink(id), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<Object[]> GetTripsByUserId(@RequestParam Long id){
-        return new ResponseEntity<>(tripService.getTripLinkByUserId(id).toArray(),HttpStatus.OK);
+    public ResponseEntity<List<Trip>> GetTripsByUserId(@RequestParam Long id) {
+        List<String> links = tripService.getTripLinkByUserId(id);
+        return new ResponseEntity<>(externalAPIService.GetUserTrips(links), HttpStatus.OK);
     }
 }
