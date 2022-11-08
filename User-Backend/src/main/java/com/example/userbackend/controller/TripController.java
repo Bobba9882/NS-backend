@@ -35,8 +35,8 @@ public class TripController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Trip>> GetTripsByUserId(@RequestParam Long id) {
+    public List<Trip> GetTripsByUserId(@RequestParam Long id) {
         List<String> links = tripService.getTripLinkByUserId(id);
-        return new ResponseEntity<>(externalAPIService.GetUserTrips(links), HttpStatus.OK);
+        return externalAPIService.GetUserTrips(links);
     }
 }
