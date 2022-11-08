@@ -1,13 +1,12 @@
 package com.example.userbackend.service;
 
-import com.example.userbackend.model.Trip;
-import com.example.userbackend.model.User;
+import com.example.userbackend.model.TripLink;
 
 import java.util.List;
 
 public interface TripService {
-    boolean saveTrip(String data, Long id);
-    boolean deleteTrip(Long tripId);
+    boolean saveTripLink(String data, Long id);
+    boolean deleteTripLink(Long tripId);
 
-    List<Trip> getTripsByUserId(Long userId);
+    List<TripLink> getTripLinkByUserId(Long userId);
 }

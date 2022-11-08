@@ -1,10 +1,8 @@
 package com.example.userbackend.model;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -31,5 +29,5 @@ public class User {
  private String email;
 
  @OneToMany(mappedBy = "user")
- private Set<Trip> savedTrips;
+ private Set<TripLink> savedTripLinks;
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -12,7 +11,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "trips")
-public class Trip {
+public class TripLink {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

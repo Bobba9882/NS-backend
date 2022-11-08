@@ -1,7 +1,6 @@
 package com.example.userbackend.service.impl;
 
-import com.example.userbackend.model.Trip;
-import com.example.userbackend.model.User;
+import com.example.userbackend.model.TripLink;
 import com.example.userbackend.repository.TripRepository;
 import com.example.userbackend.service.TripService;
 import org.springframework.stereotype.Service;
@@ -18,22 +17,22 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public boolean saveTrip(String data, Long id) {
-        Trip trip = new Trip();
-        trip.setData(data);
-        trip.setUser(id);
-        tripRepository.save(trip);
+    public boolean saveTripLink(String data, Long id) {
+        TripLink TripLink = new TripLink();
+        TripLink.setData(data);
+        TripLink.setUser(id);
+        tripRepository.save(TripLink);
         return true;
     }
 
     @Override
-    public boolean deleteTrip(Long tripId) {
+    public boolean deleteTripLink(Long tripId) {
         tripRepository.deleteById(tripId);
         return false;
     }
 
     @Override
-    public List<Trip> getTripsByUserId(Long userId) {
+    public List<TripLink> getTripLinkByUserId(Long userId) {
         return tripRepository.findByUser(userId);
     }
 }
