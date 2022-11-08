@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,4 +29,7 @@ public class User {
 
  @Column(name = "email", nullable = false)
  private String email;
+
+ @OneToMany(mappedBy = "user")
+ private Set<Trip> savedTrips;
 }

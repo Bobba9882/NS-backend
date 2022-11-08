@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 public class SecurityController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SecurityController.class);
 
     private final TokenService tokenService;
 
@@ -27,9 +26,7 @@ public class SecurityController {
 
     @PostMapping(produces = MediaType.TEXT_PLAIN_VALUE)
     public String token(Authentication authentication){
-        LOG.debug("Token requested for user: '{}'", authentication.getName());
         String token = tokenService.generateToken(authentication);
-        LOG.debug("Token generated:  {}", token);
         return "{\"text\":\"" +token+ "\"}";
     }
 }
