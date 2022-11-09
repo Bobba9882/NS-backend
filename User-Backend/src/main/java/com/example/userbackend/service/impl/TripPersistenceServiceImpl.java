@@ -2,23 +2,23 @@ package com.example.userbackend.service.impl;
 
 import com.example.userbackend.model.TripLink;
 import com.example.userbackend.repository.TripRepository;
-import com.example.userbackend.service.TripService;
+import com.example.userbackend.service.TripPersistenceService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TripServiceImpl implements TripService {
+public class TripPersistenceServiceImpl implements TripPersistenceService {
 
     private final TripRepository tripRepository;
 
-    public TripServiceImpl(TripRepository tripRepository) {
+    public TripPersistenceServiceImpl(TripRepository tripRepository) {
         this.tripRepository = tripRepository;
     }
 
     @Override
-    public boolean saveTripLink(String data, Long id) {
+    public boolean saveTrip(String data, Long id) {
         TripLink TripLink = new TripLink();
         TripLink.setData(data);
         TripLink.setUser(id);
@@ -27,13 +27,13 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public boolean deleteTripLink(Long tripId) {
+    public boolean deleteTrip(Long tripId) {
         tripRepository.deleteById(tripId);
         return false;
     }
 
     @Override
-    public List<String> getTripLinkByUserId(Long userId) {
+    public List<String> getTripsByUserId(Long userId) {
         List<String> links = new ArrayList<>();
         for (TripLink trip : tripRepository.findByUser(userId)) {
             links.add(trip.getData());

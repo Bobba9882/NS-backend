@@ -1,7 +1,7 @@
 package com.example.nsbackend.controller;
 
 import com.example.nsbackend.model.Disruption;
-import com.example.nsbackend.service.ExternalAPIService;
+import com.example.nsbackend.service.RailwayAPIService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,16 +14,16 @@ import java.util.List;
 @CrossOrigin
 public class DisruptionController {
 
-    private final ExternalAPIService externalAPIService;
+    private final RailwayAPIService railwayAPIService;
 
-    public DisruptionController(ExternalAPIService externalAPIService) {
+    public DisruptionController(RailwayAPIService railwayAPIService) {
         super();
-        this.externalAPIService = externalAPIService;
+        this.railwayAPIService = railwayAPIService;
     }
 
     @GetMapping()
-    public List<Disruption> GetDisruptions() {
-        return externalAPIService.getDisruptions();
+    public List<Disruption> GetAllDisruptions() {
+        return railwayAPIService.getAllDisruptions();
     }
 
 

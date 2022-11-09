@@ -1,17 +1,13 @@
 package com.example.nsbackend.controller;
 
 import com.example.nsbackend.model.Station.Station;
-import com.example.nsbackend.model.Trip.Trip;
 import com.example.nsbackend.model.Trip.Trips;
-import com.example.nsbackend.service.ExternalAPIService;
-import com.example.nsbackend.service.StationService;
-import org.apiguardian.api.API;
+import com.example.nsbackend.service.RailwayAPIService;
+import com.example.nsbackend.service.FindStationService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -20,10 +16,10 @@ class TripControllerTest {
 
     @Test
     void should_return_single_trip() {
-        ExternalAPIService APIMock = mock(ExternalAPIService.class);
+        RailwayAPIService APIMock = mock(RailwayAPIService.class);
         when(APIMock.getTrips(anyLong(), anyLong(), anyString(), anyBoolean())).thenReturn(new Trips());
 
-        StationService StationMock = mock(StationService.class);
+        FindStationService StationMock = mock(FindStationService.class);
         List<Station> stations = new ArrayList<>();
         Station station = new Station();
         station.setUICCode(28492721);

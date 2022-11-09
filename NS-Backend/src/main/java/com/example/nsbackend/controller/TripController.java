@@ -2,14 +2,10 @@ package com.example.nsbackend.controller;
 
 import com.example.nsbackend.model.Station.Station;
 import com.example.nsbackend.model.Trip.Trip;
-import com.example.nsbackend.model.Trip.Trips;
-import com.example.nsbackend.service.ExternalAPIService;
-import com.example.nsbackend.service.StationService;
+import com.example.nsbackend.service.RailwayAPIService;
+import com.example.nsbackend.service.FindStationService;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -17,26 +13,26 @@ import java.util.List;
 @RequestMapping("/api/v1/trip")
 public class TripController {
 
-    private final ExternalAPIService externalAPIService;
-    private final StationService stationService;
-    private final List<Station> stationsList;
+    private final RailwayAPIService railwayAPIService;
+    private final FindStationService findStationService;
+    private final List<Station> allStations;
 
-    public TripController(ExternalAPIService externalAPIService, StationService stationService) {
+    public TripController(RailwayAPIService railwayAPIService, FindStationService findStationService) {
         super();
-        this.externalAPIService = externalAPIService;
-        this.stationService = stationService;
-        stationsList = this.externalAPIService.getStations();
+        this.railwayAPIService = railwayAPIService;
+        this.findStationService = findStationService;
+        allStations = this.railwayAPIService.getAllStations();
     }
 
     @GetMapping()
     public Trip[] GetTrips(@RequestParam String fromStation, @RequestParam String toStation, @RequestParam String date, @RequestParam(defaultValue = "false") boolean isArrival) {
-        long fromUIC = stationService.FindStationsByName(fromStation, stationsList).get(0).getUICCode();
-        long toUIC = stationService.FindStationsByName(toStation, stationsList).get(0).getUICCode();
-        return externalAPIService.getTrips(fromUIC, toUIC, date, isArrival).getTrips();
+        long fromStationUICCode = findStationService.FindStationsByName(fromStation, allStations).get(0).getUICCode();
+        long toStationUICCode = findStationService.FindStationsByName(toStation, allStations).get(0).getUICCode();
+        return railwayAPIService.getTrips(fromStationUICCode, toStationUICCode, date, isArrival).getTrips();
     }
 
     @GetMapping("/single")
-    public Trip  GetSingleTrip(@RequestParam String tripLink){
-        return externalAPIService.getSingleTrip(tripLink);
+    public Trip  GetSingleTrip(@RequestParam String trip){
+        return railwayAPIService.getSingleTrip(trip);
     }
 }
