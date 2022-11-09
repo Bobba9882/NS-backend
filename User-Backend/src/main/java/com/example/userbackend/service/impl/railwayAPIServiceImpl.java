@@ -18,7 +18,7 @@ public class railwayAPIServiceImpl implements RailwayAPIService {
 
         int index = 0;
         for (String link : links) {
-            String url = "http://localhost:8080/api/v1/trip/single?tripLink=" + links.get(index);
+            String url = "http://localhost:8080/api/v1/trip/single?trip=" + links.get(index);
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<Trip> trip = restTemplate.getForEntity(url, Trip.class);
             trips.add(trip.getBody());
