@@ -36,7 +36,7 @@ public class TripController {
 
     @GetMapping
     public List<Trip> GetTripsByUserId(@RequestParam Long id) {
-        List<String> links = tripPersistenceService.getTripsByUserId(id);
+        List<Trip> links = tripPersistenceService.getTripsByUserId(id);
         return railwayAPIService.GetTripsByTripLinks(links);
     }
 }

@@ -7,7 +7,8 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 public class Trip {
-
+    @JsonProperty("tripId")
+    private Long tripId;
     @JsonProperty("ctxRecon")
     private String ctxRecon;
     @JsonProperty("plannedDurationInMinutes")

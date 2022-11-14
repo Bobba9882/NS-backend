@@ -13,16 +13,16 @@ import java.util.List;
 public class railwayAPIServiceImpl implements RailwayAPIService {
 
     @Override
-    public List<Trip> GetTripsByTripLinks(List<String> links) {
+    public List<Trip> GetTripsByTripLinks(List<Trip> links) {
         List<Trip> trips = new ArrayList<>();
 
-        int index = 0;
-        for (String link : links) {
-            String url = "http://localhost:8080/api/v1/trip/single?trip=" + links.get(index);
+        for (Trip trip : links) {
+            String url = "http://localhost:8080/api/v1/trip/single?trip=" + trip.getCtxRecon();
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<Trip> trip = restTemplate.getForEntity(url, Trip.class);
-            trips.add(trip.getBody());
-            index++;
+            ResponseEntity<Trip> responseEntity = restTemplate.getForEntity(url, Trip.class);
+            Trip response = responseEntity.getBody();
+            response.setTripId(trip.getTripId());
+            trips.add(response);
         }
         return trips;
     }

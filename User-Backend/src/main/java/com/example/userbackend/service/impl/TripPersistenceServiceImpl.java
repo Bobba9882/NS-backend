@@ -1,5 +1,6 @@
 package com.example.userbackend.service.impl;
 
+import com.example.userbackend.model.Trip.Trip;
 import com.example.userbackend.model.TripLink;
 import com.example.userbackend.repository.TripRepository;
 import com.example.userbackend.service.TripPersistenceService;
@@ -33,11 +34,14 @@ public class TripPersistenceServiceImpl implements TripPersistenceService {
     }
 
     @Override
-    public List<String> getTripsByUserId(Long userId) {
-        List<String> links = new ArrayList<>();
-        for (TripLink trip : tripRepository.findByUser(userId)) {
-            links.add(trip.getData());
+    public List<Trip> getTripsByUserId(Long userId) {
+        List<Trip> trips = new ArrayList<>();
+        for (TripLink link : tripRepository.findByUser(userId)) {
+            Trip trip = new Trip();
+            trip.setCtxRecon(link.getData());
+            trip.setTripId(link.getId());
+            trips.add(trip);
         }
-        return links;
+        return trips;
     }
 }
