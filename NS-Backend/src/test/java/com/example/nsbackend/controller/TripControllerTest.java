@@ -26,7 +26,7 @@ class TripControllerTest {
         stations.add(station);
         when(StationMock.FindStationsByName(any(), any())).thenReturn(stations);
 
-        TripController controller = new TripController(APIMock, StationMock);
+        TripController controller = new TripController(APIMock);
         Trips result = controller.GetTrips("Rijen", "Breda", "13-06-2004", false);
 
         assertEquals(new Trips(), result);

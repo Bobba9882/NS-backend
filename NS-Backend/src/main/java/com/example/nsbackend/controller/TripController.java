@@ -14,21 +14,15 @@ import java.util.List;
 public class TripController {
 
     private final RailwayAPIService railwayAPIService;
-    private final FindStationService findStationService;
-    private final List<Station> allStations;
 
-    public TripController(RailwayAPIService railwayAPIService, FindStationService findStationService) {
+    public TripController(RailwayAPIService railwayAPIService) {
         super();
         this.railwayAPIService = railwayAPIService;
-        this.findStationService = findStationService;
-        allStations = this.railwayAPIService.getAllStations();
     }
 
     @GetMapping()
-    public Trip[] GetTrips(@RequestParam String fromStation, @RequestParam String toStation, @RequestParam String date, @RequestParam(defaultValue = "false") boolean isArrival) {
-        long fromStationUICCode = findStationService.FindStationsByName(fromStation, allStations).get(0).getUICCode();
-        long toStationUICCode = findStationService.FindStationsByName(toStation, allStations).get(0).getUICCode();
-        return railwayAPIService.getTrips(fromStationUICCode, toStationUICCode, date, isArrival).getTrips();
+    public Trip[] GetTrips(@RequestParam Long fromStation, @RequestParam Long toStation, @RequestParam String date, @RequestParam(defaultValue = "false") boolean isArrival) {
+        return railwayAPIService.getTrips(fromStation, toStation, date, isArrival).getTrips();
     }
 
     @GetMapping("/single")
