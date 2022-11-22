@@ -3,6 +3,8 @@ package com.example.userbackend.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -29,5 +31,5 @@ public class User {
  private String email;
 
  @OneToMany(mappedBy = "user")
- private Set<TripLink> savedTripLinks;
+ private List<TripLink> savedTripLinks = new ArrayList<>();
 }

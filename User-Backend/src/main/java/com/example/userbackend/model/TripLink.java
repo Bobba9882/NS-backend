@@ -15,8 +15,9 @@ public class TripLink {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JoinColumn(name = "user", nullable = false)
-    private long user;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
     @Column(name = "data")
     @JsonProperty("ctxRecon")
     private String data;
