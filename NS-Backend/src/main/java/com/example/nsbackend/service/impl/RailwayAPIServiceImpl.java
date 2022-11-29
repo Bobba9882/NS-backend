@@ -3,8 +3,9 @@ package com.example.nsbackend.service.impl;
 import com.example.nsbackend.model.Disruption;
 import com.example.nsbackend.model.Station.Payload;
 import com.example.nsbackend.model.Station.Station;
+import com.example.nsbackend.model.Trip.Trip;
 import com.example.nsbackend.model.Trip.Trips;
-import com.example.nsbackend.service.ExternalAPIService;
+import com.example.nsbackend.service.RailwayAPIService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +15,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
-public class ExternalAPIServiceImpl implements ExternalAPIService {
+public class RailwayAPIServiceImpl implements RailwayAPIService {
     String baseURL = "https://gateway.apiportal.ns.nl/reisinformatie-api/api/";
 
     @Override
-    public List<Disruption> getDisruptions() {
+    public List<Disruption> getAllDisruptions() {
         //create template, initialize header with subscription key and add it to HttpEntity
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> entity = createEntity();
@@ -36,7 +35,7 @@ public class ExternalAPIServiceImpl implements ExternalAPIService {
     }
 
     @Override
-    public List<Station> getStations() {
+    public List<Station> getAllStations() {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> entity = createEntity();
 
@@ -55,6 +54,14 @@ public class ExternalAPIServiceImpl implements ExternalAPIService {
                 .queryParam("searchForArrival", isArrival);
 
         ResponseEntity<Trips> trips = restTemplate.exchange(uriBuilder.toUriString(), HttpMethod.GET, entity, Trips.class);
+        return trips.getBody();
+    }
+
+    @Override
+    public Trip getSingleTrip(String tripLink) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> entity = createEntity();
+        ResponseEntity<Trip> trips = restTemplate.exchange(baseURL + "v3/trips/trip?ctxRecon=" + tripLink, HttpMethod.GET, entity, Trip.class);
         return trips.getBody();
     }
 

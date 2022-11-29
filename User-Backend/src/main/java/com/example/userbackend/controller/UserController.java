@@ -5,6 +5,7 @@ import com.example.userbackend.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/user")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService;
@@ -26,12 +27,6 @@ public class UserController {
         return new ResponseEntity<>(userService.registerUser(user), HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<User> LoginUser(@RequestParam("email") String email, @RequestParam("password") String password) {
-        User user = userService.loginUser(email, password);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
     @PutMapping
     public ResponseEntity<User> UpdateUser(@RequestParam("id") Long id, @RequestBody User user) {
         return new ResponseEntity<>(userService.updateUser(user, id), HttpStatus.OK);
@@ -43,6 +38,5 @@ public class UserController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", true);
         return ResponseEntity.ok(response);
-
     }
 }
