@@ -1,9 +1,9 @@
 package com.example.nsbackend.controller;
 
 import com.example.nsbackend.model.Station.Station;
+import com.example.nsbackend.model.Trip.Trip;
 import com.example.nsbackend.model.Trip.Trips;
 import com.example.nsbackend.service.RailwayAPIService;
-import com.example.nsbackend.service.FindStationService;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -17,18 +17,14 @@ class TripControllerTest {
     @Test
     void should_return_single_trip() {
         RailwayAPIService APIMock = mock(RailwayAPIService.class);
-        when(APIMock.getTrips(anyLong(), anyLong(), anyString(), anyBoolean())).thenReturn(new Trips());
-
-        FindStationService StationMock = mock(FindStationService.class);
-        List<Station> stations = new ArrayList<>();
-        Station station = new Station();
-        station.setUICCode(28492721);
-        stations.add(station);
-        when(StationMock.FindStationsByName(any(), any())).thenReturn(stations);
+        Trips meow = new Trips();
+        meow.setTrips(new Trip[1]);
+        when(APIMock.getTrips(anyLong(), anyLong(), anyString(), anyBoolean())).thenReturn(meow);
 
         TripController controller = new TripController(APIMock);
-        Trips result = controller.GetTrips("Rijen", "Breda", "13-06-2004", false);
+        Trip[] result = controller.GetTrips(34512762L, 284937L, "13-06-2004", false);
 
-        assertEquals(new Trips(), result);
+        Trip[] test = new Trip[1];
+        assertEquals(test[0],result[0]);
     }
 }

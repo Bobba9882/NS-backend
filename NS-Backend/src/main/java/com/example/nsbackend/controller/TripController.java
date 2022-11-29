@@ -1,12 +1,8 @@
 package com.example.nsbackend.controller;
 
-import com.example.nsbackend.model.Station.Station;
 import com.example.nsbackend.model.Trip.Trip;
 import com.example.nsbackend.service.RailwayAPIService;
-import com.example.nsbackend.service.FindStationService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin
