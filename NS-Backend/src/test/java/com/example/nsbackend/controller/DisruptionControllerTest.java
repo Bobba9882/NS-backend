@@ -1,9 +1,8 @@
 package com.example.nsbackend.controller;
 
 import com.example.nsbackend.model.Disruption;
-import com.example.nsbackend.service.ExternalAPIService;
+import com.example.nsbackend.service.RailwayAPIService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ class DisruptionControllerTest {
     void should_return_list_of_disruptions(){
 
         //arrange
-        ExternalAPIService mock = mock(ExternalAPIService.class);
+        RailwayAPIService mock = mock(RailwayAPIService.class);
         List<Disruption> expectedDisruptions = new ArrayList<>();
         for (int i = 0; i < 10; i++){
             Disruption tempDisruption = new Disruption();
@@ -25,11 +24,11 @@ class DisruptionControllerTest {
             tempDisruption.setTitle("Disruption number" + i);
             expectedDisruptions.add(tempDisruption);
         }
-        when(mock.getDisruptions()).thenReturn(expectedDisruptions);
+        when(mock.getAllDisruptions()).thenReturn(expectedDisruptions);
         DisruptionController controller = new DisruptionController(mock);
 
         //act
-        List<Disruption> returnedDisruptions = controller.GetDisruptions();
+        List<Disruption> returnedDisruptions = controller.GetAllDisruptions();
 
         //assert
         assertEquals(expectedDisruptions, returnedDisruptions);
