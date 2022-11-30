@@ -1,5 +1,6 @@
 package com.example.nsbackend.model;
 
+import com.example.nsbackend.model.Trip.Type;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -21,14 +22,6 @@ public class Disruption {
     private String start;
     @JsonProperty("end")
     private String end;
-}
-
-
-
-enum Type {
-    CALAMITY,
-    DISRUPTION,
-    MAINTENANCE
 }
 
 
